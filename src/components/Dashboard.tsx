@@ -14,13 +14,13 @@ export function Dashboard() {
   const stats = [
     {
       label: 'Repeater Stations',
-      value: '12',
+      value: '2',
       icon: Wifi,
       color: 'text-blue-600',
     },
     {
       label: 'Base Stations',
-      value: '24',
+      value: '4',
       icon: Radio,
       color: 'text-green-600',
     },

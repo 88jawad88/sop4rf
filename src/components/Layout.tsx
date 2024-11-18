@@ -11,7 +11,7 @@ export function Layout() {
     { icon: Radio, label: 'Maintenance', path: '/maintenance' },
     { icon: List, label: 'Checklists', path: '/checklists' },
     { icon: FileText, label: 'Templates', path: '/templates' },
-    { icon: Settings, label: 'Settings', path: '/settings' },
+    // { icon: Settings, label: 'Settings', path: '/settings' },
   ];
 
   return (
