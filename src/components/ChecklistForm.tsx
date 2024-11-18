@@ -8,17 +8,10 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
     {
       category: 'Antenna',
       items: [
-        { name: 'Signal Cable', options: ['CNT400', '8D-FB', 'RG213', 'RG58'] },
+        { name: 'Signal Cable', options: ['CNT400', '8D-FB'] },
         { name: 'Connectors', options: ['PL Connector', 'N Connector'] },
         { name: 'Lightning Protection' },
         { name: 'Fixing Ropes + Clips + Brackets + Bolts' },
-      ],
-    },
-    {
-      category: 'The Repeater',
-      items: [
-        { name: 'Pepwave' },
-        { name: 'Laptop + Programming Cable + Network Cable' },
       ],
     },
     {
@@ -37,7 +30,7 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
     {
       category: 'Antenna',
       items: [
-        { name: 'Signal Cable', options: ['CNT400', '8D-FB', 'RG213', 'RG58'] },
+        { name: 'Signal Cable', options: [ 'RG213'] },
         { name: 'Connectors', options: ['PL Connector', 'N Connector'] },
       ],
     },
@@ -70,7 +63,7 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
     {
       category: 'Antenna',
       items: [
-        { name: 'Signal Cable', options: ['CNT400', '8D-FB', 'RG213', 'RG58'] },
+        { name: 'Signal Cable', options: ['RG58'] },
         { name: 'Connectors', options: ['PL Connector', 'N Connector'] },
         { name: 'GPS' },
       ],
@@ -96,7 +89,7 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
     {
       category: 'Handheld',
       items: [
-        { name: 'Antenna', options: ['Hustler', 'Procon', 'BC100', 'BC101'] },
+        { name: 'Antenna', options: ['KRA-22', 'KRA-26'] },
         { name: 'Battery' },
         { name: 'Clip' },
         { name: 'Laptop + Programming Cable' },

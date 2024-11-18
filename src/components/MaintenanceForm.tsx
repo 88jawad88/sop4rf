@@ -9,10 +9,17 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
       category: 'Antenna',
       items: [
         { name: 'Antenna', options: ['Hustler', 'Procon', 'BC100', 'BC101'] },
-        { name: 'Signal Cable', options: ['CNT400', '8D-FB', 'RG213', 'RG58'] },
+        { name: 'Signal Cable', options: ['CNT400', '8D-FB'] },
         { name: 'Connectors', options: ['PL Connector', 'N Connector'] },
         { name: 'Lightning Protection' },
         { name: 'Fixing Ropes + Clips + Brackets' },
+      ],
+    },
+    {
+      category: 'The Repeater',
+      items: [
+        { name: 'Pepwave' },
+        { name: 'Laptop + Programming Cable + Network Cable' },
       ],
     },
     {
@@ -36,6 +43,11 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
         { name: 'Hex Key Screwdriver + Bolts' },
         { name: 'Screwdrivers Cross + Regular' },
         { name: 'Pliers + Cutters' },
+        { name: 'Soliyat press tool', checked: false },
+        { name: 'wrench set', checked: false },
+        { name: 'Screws and their wedges', checked: false },
+        { name: 'hammer', checked: false },
+        { name: 'Goma', checked: false },
       ],
     },
   ],
@@ -43,8 +55,8 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
     {
       category: 'Antenna',
       items: [
-        { name: 'Antenna', options: ['Hustler', 'Procon', 'BC100', 'BC101'] },
-        { name: 'Signal Cable', options: ['CNT400', '8D-FB', 'RG213', 'RG58'] },
+        { name: 'Antenna', options: ['Procon'] },
+        { name: 'Signal Cable', options: ['RG213', 'RG58'] },
         { name: 'Connectors', options: ['PL Connector', 'N Connector'] },
         { name: 'GPS' },
       ],
@@ -67,31 +79,66 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
         { name: 'Fuses' },
       ],
     },
+    {
+      category: 'Equipment',
+      items: [
+        { name: 'Battery Drill', checked: false },
+        { name: 'Ohm Meter', checked: false },
+        { name: 'SWR + Connector + Adapter', checked: false },
+        { name: 'Gas Soldering + Caustic + Tin', checked: false },
+        { name: 'Hex Key Screwdriver + Bolts', checked: false },
+        { name: 'Screwdrivers Cross + Regular', checked: false },
+        { name: 'Pliers + Cutters', checked: false },
+        { name: 'Soliyat press tool', checked: false },
+        { name: 'wrench set', checked: false },
+        { name: 'Goma + toal', checked: false },
+        { name: '12 v tester', checked: false },
+        { name: 'sillicon gun', checked: false },
+
+      ],
+    },
   ],
   base: [
     {
       category: 'Antenna',
       items: [
         { name: 'Antenna', options: ['Hustler', 'Procon', 'BC100', 'BC101'] },
-        { name: 'Signal Cable', options: ['CNT400', '8D-FB', 'RG213', 'RG58'] },
+        { name: 'Signal Cable', options: ['RG213'] },
         { name: 'Connectors', options: ['PL Connector', 'N Connector'] },
         { name: 'Lightning Protection' },
       ],
     },
     {
+      category: 'station',
+      items: [
+        { name: 'KMC', checked: false },
+        { name: ' Laptop + programming cable', checked: false },
+      ],
+    },
+    {
       category: 'Power',
       items: [
-        { name: 'Power Supply' },
-        { name: 'Power Cable + Fuse' },
-        { name: 'Circuit Breaker' },
+        { name: 'Power Supply', checked: false },
+        { name: 'Power Cable + Fuse', checked: false },
+        { name: 'DC distributor', checked: false },
+        { name: '220 charger', checked: false },
+
       ],
     },
     {
       category: 'Equipment',
       items: [
-        { name: 'Programming Cable + Laptop' },
-        { name: 'SWR Meter' },
-        { name: 'Basic Tools Set' },
+        { name: 'Battery Drill', checked: false },
+        { name: 'Ohm Meter', checked: false },
+        { name: 'SWR + Connector + Adapter', checked: false },
+        { name: 'Gas Soldering + Caustic + Tin', checked: false },
+        { name: 'Hex Key Screwdriver + Bolts', checked: false },
+        { name: 'Screwdrivers Cross + Regular', checked: false },
+        { name: 'Pliers + Cutters', checked: false },
+        { name: 'Soliyat press tool', checked: false },
+        { name: 'wrench set', checked: false },
+        { name: 'Goma + toal', checked: false },
+        { name: 'hammer + meter', checked: false },
       ],
     },
   ],
@@ -99,7 +146,7 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
     {
       category: 'Handheld',
       items: [
-        { name: 'Antenna', options: ['Hustler', 'Procon', 'BC100', 'BC101'] },
+        { name: 'Antenna', options: ['KRA-22', 'KRA-26'] },
         { name: 'Battery' },
         { name: 'Clip' },
         { name: 'Laptop + Programming Cable' },
