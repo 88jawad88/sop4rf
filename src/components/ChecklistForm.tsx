@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Save } from 'lucide-react';
-import { MaintenanceSection, EquipmentType, AntennaOptions } from '../types';
+import { useNavigate } from 'react-router-dom';
+import { MaintenanceSection, EquipmentType, Template } from '../types';
 
 const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
   repeater: [
@@ -95,7 +96,7 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
     {
       category: 'Handheld',
       items: [
-        { name: 'Antenna/Type', options: ['Hustler', 'Procon', 'BC100', 'BC101'] },
+        { name: 'Antenna', options: ['Hustler', 'Procon', 'BC100', 'BC101'] },
         { name: 'Battery' },
         { name: 'Clip' },
         { name: 'Laptop + Programming Cable' },
@@ -108,13 +109,16 @@ const maintenanceConfig: Record<EquipmentType, MaintenanceSection[]> = {
 };
 
 export function ChecklistForm() {
+  const navigate = useNavigate();
   const [equipmentType, setEquipmentType] = useState<EquipmentType>('repeater');
   const [maintenanceItems, setMaintenanceItems] = useState<MaintenanceSection[]>(maintenanceConfig.repeater);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     setMaintenanceItems(maintenanceConfig[equipmentType]);
     setSelectedOptions({});
+    setCheckedItems({});
   }, [equipmentType]);
 
   const handleOptionChange = (itemName: string, value: string) => {
@@ -124,15 +128,40 @@ export function ChecklistForm() {
     }));
   };
 
+  const handleCheckboxChange = (itemName: string) => {
+    setCheckedItems(prev => ({
+      ...prev,
+      [itemName]: !prev[itemName]
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Checklist submitted:', { equipmentType, maintenanceItems, selectedOptions });
+    const templateData: Template = {
+      id: Date.now().toString(),
+      date: new Date().toISOString().split('T')[0],
+      type: 'Checklist',
+      equipmentType,
+      items: maintenanceItems.map(section => ({
+        category: section.category,
+        items: section.items.map(item => ({
+          name: item.name,
+          value: selectedOptions[item.name],
+          checked: checkedItems[item.name]
+        }))
+      }))
+    };
+    
+    const existingTemplates = JSON.parse(localStorage.getItem('templates') || '[]');
+    localStorage.setItem('templates', JSON.stringify([...existingTemplates, templateData]));
+    
+    navigate('/templates');
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-2xl font-semibold mb-6">Periodic Inspection Checklist</h2>
+    <div className="w-full max-w-4xl mx-auto">
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-semibold mb-6">Periodic Inspection Checklist</h2>
         
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -158,13 +187,13 @@ export function ChecklistForm() {
               </h3>
               <div className="space-y-3">
                 {section.items.map((item) => (
-                  <div key={item.name} className="flex items-center justify-between border-b border-gray-100 pb-2">
+                  <div key={item.name} className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-100 pb-2 gap-2">
                     <span className="text-sm text-gray-700">{item.name}</span>
                     {item.options ? (
                       <select
                         value={selectedOptions[item.name] || ''}
                         onChange={(e) => handleOptionChange(item.name, e.target.value)}
-                        className="ml-4 px-2 py-1 border border-gray-300 rounded-md text-sm"
+                        className="w-full sm:w-auto px-2 py-1 border border-gray-300 rounded-md text-sm"
                       >
                         <option value="">Select {item.name}</option>
                         {item.options.map((option) => (
@@ -174,10 +203,14 @@ export function ChecklistForm() {
                         ))}
                       </select>
                     ) : (
-                      <input
-                        type="checkbox"
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                      />
+                      <div className="flex justify-end">
+                        <input
+                          type="checkbox"
+                          checked={checkedItems[item.name] || false}
+                          onChange={() => handleCheckboxChange(item.name)}
+                          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        />
+                      </div>
                     )}
                   </div>
                 ))}
@@ -189,7 +222,7 @@ export function ChecklistForm() {
         <div className="mt-8 flex justify-end">
           <button
             type="submit"
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             <Save className="h-4 w-4" />
             Save Checklist

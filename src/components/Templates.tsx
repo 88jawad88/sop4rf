@@ -1,49 +1,26 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
-import { Printer } from 'lucide-react';
-
-interface Template {
-  id: string;
-  date: string;
-  type: string;
-  equipmentType: string;
-  items: {
-    category: string;
-    items: Array<{
-      name: string;
-      value?: string;
-      checked?: boolean;
-    }>;
-  }[];
-}
+import { Printer, Trash2 } from 'lucide-react';
+import { Template } from '../types';
 
 export function Templates() {
+  const [templates, setTemplates] = useState<Template[]>([]);
   const printRef = useRef<HTMLDivElement>(null);
-  
-  // This would normally come from a database or state management
-  const templates: Template[] = [
-    {
-      id: '1',
-      date: '2024-03-15',
-      type: 'Maintenance',
-      equipmentType: 'Repeater Station',
-      items: [
-        {
-          category: 'Antenna',
-          items: [
-            { name: 'Signal Cable', value: 'CNT400' },
-            { name: 'Connectors', value: 'PL Connector' },
-            { name: 'Lightning Protection', checked: true },
-          ],
-        },
-      ],
-    },
-    // Add more templates as needed
-  ];
+
+  useEffect(() => {
+    const savedTemplates = JSON.parse(localStorage.getItem('templates') || '[]');
+    setTemplates(savedTemplates);
+  }, []);
 
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
   });
+
+  const handleDelete = (id: string) => {
+    const updatedTemplates = templates.filter(template => template.id !== id);
+    localStorage.setItem('templates', JSON.stringify(updatedTemplates));
+    setTemplates(updatedTemplates);
+  };
 
   return (
     <div>
@@ -61,13 +38,22 @@ export function Templates() {
                 </h2>
                 <p className="text-sm text-gray-500">Created: {template.date}</p>
               </div>
-              <button
-                onClick={handlePrint}
-                className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-md"
-              >
-                <Printer className="h-4 w-4" />
-                Print
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={handlePrint}
+                  className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-md"
+                >
+                  <Printer className="h-4 w-4" />
+                  Print
+                </button>
+                <button
+                  onClick={() => handleDelete(template.id)}
+                  className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-md"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Delete
+                </button>
+              </div>
             </div>
 
             <div className="space-y-6">

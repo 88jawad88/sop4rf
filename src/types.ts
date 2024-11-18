@@ -4,6 +4,7 @@ export interface MaintenanceItem {
   name: string;
   options?: string[];
   checked?: boolean;
+  value?: string;
 }
 
 export interface MaintenanceSection {
@@ -11,8 +12,17 @@ export interface MaintenanceSection {
   items: MaintenanceItem[];
 }
 
-export interface AntennaOptions {
-  type: string[];
-  signalCable: string[];
-  connectors: string[];
+export interface Template {
+  id: string;
+  date: string;
+  type: 'Maintenance' | 'Checklist';
+  equipmentType: EquipmentType;
+  items: {
+    category: string;
+    items: Array<{
+      name: string;
+      value?: string;
+      checked?: boolean;
+    }>;
+  }[];
 }
